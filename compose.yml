@@ -6,5 +6,5 @@ services:
     ports:
       - "8501:8501"
     volumes:
-      - ./portfolio.db:/app/portfolio.db:rw 
-      # Mount db volume so it persists on host
+      - ./data:/app/data:rw 
+      # Mount data dir so it persists on host and avoids file-vs-dir issues

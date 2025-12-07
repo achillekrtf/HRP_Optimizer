@@ -3,7 +3,12 @@ import pandas as pd
 import json
 from datetime import datetime
 
-DB_NAME = "portfolio.db"
+import os
+
+# Ensure data directory exists
+DATA_DIR = "data"
+os.makedirs(DATA_DIR, exist_ok=True)
+DB_NAME = os.path.join(DATA_DIR, "portfolio.db")
 
 def init_db():
     conn = sqlite3.connect(DB_NAME)
@@ -68,7 +73,13 @@ def get_prices(start_date=None):
         
     query += " ORDER BY date ASC"
     
-    df = pd.read_sql(query, conn)
+    try:
+        df = pd.read_sql(query, conn)
+    except pd.errors.DatabaseError:
+        # Table might not exist yet
+        conn.close()
+        return pd.DataFrame()
+        
     conn.close()
     
     if df.empty:
