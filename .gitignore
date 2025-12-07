@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Database
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# Project specific
+analysis.ipynb
+# We keep analysis.ipynb or generate_notebook.py? 
+# Usually we keep the generating script, and maybe the output if user wants to see it on github.
+# Let's keep analysis.ipynb in the repo so it renders on GitHub.
+# But ignore the data if it was inside the notebook (it is embedded in outputs, which is fine)
+
+# OS
+.DS_Store
