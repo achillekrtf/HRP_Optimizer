@@ -90,3 +90,4 @@ To ensure your portfolio is updated daily and rebalanced weekly, set up a cron j
 *   **Data Update**: Fetches the last 2 years of data for all tickers daily.
 *   **Rebalancing**: Checks if the last allocation is older than 7 days. If yes, it re-runs HRP optimization and saves the new weights.
 
+# HRP_Optimizer
