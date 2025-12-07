@@ -80,6 +80,7 @@ with row1_col2:
         corr = returns.corr()
         
         fig_dendro = ff.create_dendrogram(corr, labels=corr.columns)
+        fig_dendro.update_layout(width=800, height=500) # Fix for Streamlit OverflowError
         st.plotly_chart(fig_dendro, use_container_width=True)
     else:
         st.info("Not enough assets for dendrogram.")
