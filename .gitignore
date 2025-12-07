@@ -18,7 +18,7 @@ pip-delete-this-directory.txt
 *.log
 
 # Project specific
-analysis.ipynb
+# analysis.ipynb
 # We keep analysis.ipynb or generate_notebook.py? 
 # Usually we keep the generating script, and maybe the output if user wants to see it on github.
 # Let's keep analysis.ipynb in the repo so it renders on GitHub.
