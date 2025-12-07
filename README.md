@@ -69,9 +69,37 @@ streamlit run app.py --server.port 80
 
 ## 📂 Project Structure
 
-### 4. Persistence & Automation (V2)
+### 4. Deployment (Docker) - Recommended
 
-The application now uses a SQLite database (`portfolio.db`) to store market data and allocations. This allows it to run efficiently and maintain state.
+The easiest way to run the app is with Docker. It handles the dependencies and the auto-updater for you.
+
+#### Prerequisites
+- Docker & Docker Compose installed on your VPS.
+
+#### Steps
+1.  Clone the repository:
+    ```bash
+    git clone https://github.com/achillekrtf/HRP_Optimizer.git
+    cd HRP_Optimizer
+    ```
+2.  Start the container:
+    ```bash
+    docker compose up -d --build
+    ```
+
+That's it!
+- The **Dashboard** is available at `http://<YOUR_IP>:8501`.
+- The **Scheduler** runs automatically in the background (updates daily at 22:00).
+- Data is persisted in `portfolio.db`.
+
+### 5. Manual Deployment (Alternative)
+If you prefer not to use Docker, follow the steps below.
+
+#### Persistence & Automation (V2)
+The application uses a SQLite database (`portfolio.db`).
+
+... (rest of the section)
+
 
 #### Automatic Updates (Cron)
 To ensure your portfolio is updated daily and rebalanced weekly, set up a cron job.

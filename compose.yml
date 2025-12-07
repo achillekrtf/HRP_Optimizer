@@ -1,0 +1,10 @@
+services:
+  hrp-dashboard:
+    build: .
+    container_name: hrp_dashboard
+    restart: always
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./portfolio.db:/app/portfolio.db:rw 
+      # Mount db volume so it persists on host
