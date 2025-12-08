@@ -1,7 +1,37 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, LineChart, Line, XAxis, YAxis, CartesianGrid } from 'recharts'
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip } from 'recharts'
 import { Activity, TrendingUp, ShieldAlert, RefreshCw } from 'lucide-react'
+
+// ... (rest of imports/interfaces same)
+
+// ...
+
+// Inside component
+<div className="h-[300px] w-full">
+  <ResponsiveContainer width="100%" height="100%">
+    <PieChart>
+      <Pie
+        data={pieData}
+        cx="50%"
+        cy="50%"
+        innerRadius={60}
+        outerRadius={100}
+        paddingAngle={5}
+        dataKey="value"
+      >
+        {pieData.map((_, index) => (
+          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="rgba(0,0,0,0)" />
+        ))}
+      </Pie>
+      <RechartsTooltip
+        contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155' }}
+        itemStyle={{ color: '#f8fafc' }}
+      />
+    </PieChart>
+  </ResponsiveContainer>
+</div>
+// ...
 
 // Types
 interface Metrics {
@@ -132,7 +162,7 @@ function App() {
                   paddingAngle={5}
                   dataKey="value"
                 >
-                  {pieData.map((entry, index) => (
+                  {pieData.map((_, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="rgba(0,0,0,0)" />
                   ))}
                 </Pie>
