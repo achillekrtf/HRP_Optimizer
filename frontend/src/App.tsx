@@ -7,31 +7,7 @@ import { Activity, TrendingUp, ShieldAlert, RefreshCw } from 'lucide-react'
 
 // ...
 
-// Inside component
-<div className="h-[300px] w-full">
-  <ResponsiveContainer width="100%" height="100%">
-    <PieChart>
-      <Pie
-        data={pieData}
-        cx="50%"
-        cy="50%"
-        innerRadius={60}
-        outerRadius={100}
-        paddingAngle={5}
-        dataKey="value"
-      >
-        {pieData.map((_, index) => (
-          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} stroke="rgba(0,0,0,0)" />
-        ))}
-      </Pie>
-      <RechartsTooltip
-        contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155' }}
-        itemStyle={{ color: '#f8fafc' }}
-      />
-    </PieChart>
-  </ResponsiveContainer>
-</div>
-// ...
+
 
 // Types
 interface Metrics {
@@ -93,13 +69,7 @@ function App() {
 
   const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#6366f1']
 
-  // Prepare Chart Data
-  const pieData = Object.entries(allocation.weights).map(([name, value]) => ({
-    name,
-    value: value * 100
-  })).filter(d => d.value > 0.01) // Filter tiny holdings
 
-  const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#6366f1']
 
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 p-8 font-sans">
