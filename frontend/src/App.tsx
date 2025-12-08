@@ -93,6 +93,14 @@ function App() {
 
   const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#6366f1']
 
+  // Prepare Chart Data
+  const pieData = Object.entries(allocation.weights).map(([name, value]) => ({
+    name,
+    value: value * 100
+  })).filter(d => d.value > 0.01) // Filter tiny holdings
+
+  const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#6366f1']
+
   return (
     <div className="min-h-screen bg-slate-900 text-slate-100 p-8 font-sans">
       <header className="max-w-7xl mx-auto mb-10 flex justify-between items-center">
