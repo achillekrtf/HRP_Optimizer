@@ -27,92 +27,76 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install python3-pip python3-venv git -y
 ```
 
-### 2. Installation
+### 🤖 Tech Giants HRP Portfolio Dashboard
 
-Clone your repository (or upload files) and set up the environment.
+A full-stack quantitative finance dashboard that constructs a **Hierarchical Risk Parity (HRP)** portfolio of top Tech stocks. It features a **FastAPI** backend for robust calculation and a **React (Vite)** frontend for a modern, responsive UI.
 
-#### Option A: Using Standard Pip
-```bash
-# Create a virtual environment
-python3 -m venv venv
-source venv/bin/activate
+## 🚀 Key Features
 
-# Install dependencies
-pip install -r requirements.txt
-```
+*   **HRP Optimization**: Uses `PyPortfolioOpt` to build a risk-parity portfolio, robust to market noise.
+*   **Modern Interactive UI**: React + Recharts + TailwindCSS.
+*   **Automated Updates**: Dedicated scheduler service keeps market data fresh daily (Rolling Window).
+*   **Persistence**: SQLite database (`data/portfolio.db`) stores history and allocations.
+*   **Dockerized**: One-command deployment for the entire stack.
 
-#### Option B: Using uv (Faster & Recommended)
-If `uv` is available:
-```bash
-uv pip install -r requirements.txt
-```
+## 🛠️ Tech Stack
 
-### 3. Running the App
-
-Run the dashboard in the background (using `nohup` or `tmux` is recommended for persistent sessions).
-
-```bash
-# Simple run
-streamlit run app.py
-
-# Run on specific port (e.g., 80)
-streamlit run app.py --server.port 80
-```
-
-**Access the dashboard at:** `http://<YOUR_VPS_IP>:8501`
-
-## 💻 Local Development
-
-1.  Clone repo.
-2.  Install dependencies: `pip install -r requirements.txt`.
-3.  Run: `streamlit run app.py`.
+*   **Frontend**: React, TypeScript, Vite, TailwindCSS, Recharts.
+*   **Backend**: Python, FastAPI, Pandas, PyPortfolioOpt, yfinance.
+*   **Database**: SQLite (persisted via Docker volumes).
+*   **DevOps**: Docker & Docker Compose.
 
 ## 📂 Project Structure
 
-### 4. Deployment (Docker) - Recommended
+```
+├── backend/            # FastAPI App & Worker
+│   ├── main.py         # API Entrypoint
+│   ├── scheduler.py    # Background Updater
+│   ├── logic.py        # Core Quant Logic
+│   └── database.py     # SQLite Handler
+├── frontend/           # React App
+│   ├── src/            # Components & Pages
+│   └── Dockerfile      # Multi-stage Nginx build
+├── data/               # Persistent Data Storage
+├── compose.yml         # Full Stack Orchestration
+└── analysis.ipynb      # Research Notebook (Backtesting)
+```
 
-The easiest way to run the app is with Docker. It handles the dependencies and the auto-updater for you.
+## 🌍 Deployment
 
-#### Prerequisites
-- Docker & Docker Compose installed on your VPS.
+The application is designed to be deployed on a VPS using Docker.
 
-#### Steps
-1.  Clone the repository:
-    ```bash
-    git clone https://github.com/achillekrtf/HRP_Optimizer.git
-    cd HRP_Optimizer
-    ```
-2.  Start the container:
-    ```bash
-    docker compose up -d --build
-    ```
+### 1. Prerequisites
+*   Docker & Docker Compose installed.
 
-That's it!
-- The **Dashboard** is available at `http://<YOUR_IP>:8501`.
-- The **Scheduler** runs automatically in the background (updates daily at 22:00).
-- Data is persisted in `portfolio.db`.
+### 2. Quick Start
+Clone the repository and launch the stack:
 
-### 5. Manual Deployment (Alternative)
-If you prefer not to use Docker, follow the steps below.
+```bash
+# 1. Clone
+git clone https://github.com/achillekrtf/HRP_Optimizer.git
+cd HRP_Optimizer
 
-#### Persistence & Automation (V2)
-The application uses a SQLite database (`portfolio.db`).
+# 2. Launch
+docker compose up -d --build
+```
 
-... (rest of the section)
+### 3. Access
+*   **Dashboard**: `http://<YOUR_VPS_IP>` (Port 80)
+*   **API**: `http://<YOUR_VPS_IP>:8000`
+*   **Scheduler**: Runs automatically in the background (Updates daily at 22:00 UTC).
 
+## 🔬 Research & Backtesting
+For a deep dive into the algorithm and a rolling backtest of the strategy:
+*   Open `analysis.ipynb` (Jupyter Notebook).
+*   Includes Dendrograms, Correlation Matrices, and Equity Curves comparing HRP vs SPY.
 
-#### Automatic Updates (Cron)
-To ensure your portfolio is updated daily and rebalanced weekly, set up a cron job.
-
-1.  Make sure `updater.py` is executable or run via python.
-2.  Edit crontab:
-    ```bash
-    crontab -e
-    ```
-3.  Add the following line (runs every weekday at 10:00 PM):
-    ```cron
-    0 22 * * 1-5 cd /path/to/project && /path/to/venv/bin/python updater.py >> updater.log 2>&1
-    ```
+## 🔄 Development
+To run locally:
+```bash
+docker compose up
+```
+Or run services individually (requires python 3.11 and node 18+).
 
 #### Rolling Window Logic
 *   **Data Update**: Fetches the last 2 years of data for all tickers daily.

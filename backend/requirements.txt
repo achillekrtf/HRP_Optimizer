@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+pandas
+numpy
+yfinance
+pyportfolioopt
+scipy
+schedule
